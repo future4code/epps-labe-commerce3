@@ -4,4 +4,4 @@ Sejam bem vindos ao Labe-commerce, esse repositório contém um esqueleto de app
 
 - Victor Torres
 - Bruno Vallim
--
+- José Neto
