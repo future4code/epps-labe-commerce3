@@ -90,6 +90,7 @@ class App extends React.Component {
           </Aside>
           <Article>
             <h2>Main section</h2>
+            <p>Lorem ipsum dolor sit amet.</p>
           </Article>
         </Section>
       </Main>
