@@ -10,6 +10,8 @@ const Main = styled.main`
   width: 100vw;
   box-sizing: border-box;
   margin: 0;
+  overflow-x: hidden;
+  color: #1e1e1e;
 `;
 
 const Header = styled.header`
@@ -24,14 +26,15 @@ const Header = styled.header`
     margin-left: 2rem;
     padding: 1rem;
   }
+
   div {
     padding: 1rem;
     margin-right: 1rem;
 
     ul {
       display: flex;
-      margin-right: 1rem;
     }
+
     ul li {
       margin-right: 1rem;
       list-style: none;
@@ -43,7 +46,6 @@ const Section = styled.section`
   width: 100vw;
   height: 100%;
   display: flex;
-  /* flex-direction: column; */
   justify-content: space-between;
 `;
 
@@ -55,27 +57,34 @@ const Aside = styled.aside`
 `;
 
 const Article = styled.article`
-
   max-width: 60vw;
-  min-width: 60vw;
+  min-width: ${(props) => (props.carrinhoToggle ? '80vw' : '60vw')};
   display: flex;
   justify-content: center;
   padding: 1rem;
   background-color: lemonchiffon;
-
 `;
 
 const Button = styled.button`
-  background-color: antiquewhite;
+  background-color: lemonchiffon;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   cursor: pointer;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #1e1e1e;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: #ece7b8;
+  }
 `;
 
 class App extends React.Component {
   state = {
     carrinhoToggle: false,
+    toggledWidth: false,
   };
 
   abrirCarrinho = () => {
@@ -92,12 +101,10 @@ class App extends React.Component {
           <div>
             <ul>
               <li>
-
                 <Button href="/">Home</Button>
               </li>
               <li>
                 <Button onClick={this.abrirCarrinho}>Carrinho</Button>
-
               </li>
             </ul>
           </div>
@@ -107,10 +114,8 @@ class App extends React.Component {
           <Aside>
             <h3>Filtro</h3>
           </Aside>
-          <Article>
-
+          <Article carrinhoToggle={this.state.carrinhoToggle}>
             <h2>Produtos</h2>
-
           </Article>
           {!this.state.carrinhoToggle ? <Carrinho /> : ''}
         </Section>
