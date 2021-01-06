@@ -4,7 +4,7 @@ import Produto from './Produto';
 
 const Aside = styled.aside`
   height: 100vh;
-  width: 20vw;
+  width: 25vw;
   display: flex;
   flex-direction: column;
 
@@ -13,9 +13,15 @@ const Aside = styled.aside`
   }
 
   div {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    p {
+      padding-left: 1rem;
+    }
   }
+`;
+
+const Section = styled.section`
+  border-top: 1px solid #bbbbbb;
+  padding-left: 1rem;
 `;
 
 class Carrinho extends React.Component {
@@ -41,12 +47,12 @@ class Carrinho extends React.Component {
             Total: R$ <span>{this.state.total}</span>
           </p>
 
-          <div>
+          <Section>
             <h4>Itens adicionados:</h4>
             {this.state.produtos.map((produto) => (
               <Produto key={produto.id} produto={produto} />
             ))}
-          </div>
+          </Section>
         </div>
       </Aside>
     );
