@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Carrinho from './components/Carrinho';
+import Filtro from './components/Filtro';
 
 const Main = styled.main`
   display: flex;
@@ -105,7 +106,7 @@ class App extends React.Component {
 
         <Section>
           <Aside>
-            <h3>Filtro</h3>
+            <Filtro/>
           </Aside>
           <Article>
 
