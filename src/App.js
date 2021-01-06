@@ -15,6 +15,7 @@ const Main = styled.main`
 const Header = styled.header`
   width: 100%;
   height: 100px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -54,12 +55,14 @@ const Aside = styled.aside`
 `;
 
 const Article = styled.article`
+
   max-width: 60vw;
   min-width: 60vw;
   display: flex;
   justify-content: center;
   padding: 1rem;
   background-color: lemonchiffon;
+
 `;
 
 const Button = styled.button`
@@ -89,10 +92,12 @@ class App extends React.Component {
           <div>
             <ul>
               <li>
+
                 <Button href="/">Home</Button>
               </li>
               <li>
                 <Button onClick={this.abrirCarrinho}>Carrinho</Button>
+
               </li>
             </ul>
           </div>
@@ -103,7 +108,9 @@ class App extends React.Component {
             <h3>Filtro</h3>
           </Aside>
           <Article>
+
             <h2>Produtos</h2>
+
           </Article>
           {!this.state.carrinhoToggle ? <Carrinho /> : ''}
         </Section>
