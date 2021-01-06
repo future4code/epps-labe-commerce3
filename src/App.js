@@ -59,7 +59,7 @@ const Aside = styled.aside`
 
 const Article = styled.article`
   max-width: 60vw;
-  min-width: ${(props) => (props.carrinhoToggle ? '80vw' : '60vw')};
+  min-width: ${(props) => (props.carrinhoToggle ? '75vw' : '55vw')};
   display: flex;
   justify-content: center;
   padding: 1rem;

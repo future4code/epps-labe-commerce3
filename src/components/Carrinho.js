@@ -4,7 +4,7 @@ import Produto from './Produto';
 
 const Aside = styled.aside`
   height: 100vh;
-  width: 20vw;
+  width: 25vw;
   display: flex;
   flex-direction: column;
 
@@ -13,9 +13,20 @@ const Aside = styled.aside`
   }
 
   div {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    p {
+      padding-left: 1rem;
+    }
   }
+`;
+
+const Section = styled.section`
+  border-top: 1px solid #bbbbbb;
+  padding-left: 1rem;
+`;
+
+const Ul = styled.ul`
+  margin: 0;
+  padding: 0;
 `;
 
 class Carrinho extends React.Component {
@@ -27,9 +38,28 @@ class Carrinho extends React.Component {
         value: 0,
         imgURL: '',
       },
+      {
+        id: Date.now(),
+        name: '',
+        value: 0,
+        imgURL: '',
+      },
     ],
     total: 0,
   };
+
+  addToCart = () => {
+    const novoProdutos = {
+      id: Date.now(),
+      name: '',
+      value: 0,
+      imgURL: '',
+    };
+
+    this.setState({ novoProdutos, ...this.state.produtos });
+  };
+
+  handlerAddToCart = () => {};
 
   render() {
     return (
@@ -41,12 +71,14 @@ class Carrinho extends React.Component {
             Total: R$ <span>{this.state.total}</span>
           </p>
 
-          <div>
+          <Section>
             <h4>Itens adicionados:</h4>
-            {this.state.produtos.map((produto) => (
-              <Produto key={produto.id} produto={produto} />
-            ))}
-          </div>
+            <Ul>
+              {this.state.produtos.map((produto) => (
+                <Produto key={produto.id} produto={produto} />
+              ))}
+            </Ul>
+          </Section>
         </div>
       </Aside>
     );
