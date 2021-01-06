@@ -17,6 +17,7 @@ const Main = styled.main`
 const Header = styled.header`
   width: 100%;
   height: 100px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
