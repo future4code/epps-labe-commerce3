@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Carrinho from './components/Carrinho';
 
 const Main = styled.main`
   display: flex;
@@ -14,6 +15,7 @@ const Main = styled.main`
 const Header = styled.header`
   width: 100%;
   height: 100px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -53,9 +55,14 @@ const Aside = styled.aside`
 `;
 
 const Article = styled.article`
-  width: 80vw;
+
+  max-width: 60vw;
+  min-width: 60vw;
   display: flex;
   justify-content: center;
+  padding: 1rem;
+  background-color: lemonchiffon;
+
 `;
 
 const Button = styled.button`
@@ -67,18 +74,30 @@ const Button = styled.button`
 `;
 
 class App extends React.Component {
+  state = {
+    carrinhoToggle: false,
+  };
+
+  abrirCarrinho = () => {
+    this.setState((prevState) => ({
+      carrinhoToggle: !prevState.carrinhoToggle,
+    }));
+  };
+
   render() {
     return (
       <Main>
         <Header>
-          <h1>Hello World!</h1>
+          <h1>Lab E-commerce</h1>
           <div>
             <ul>
               <li>
-                <Button>Home</Button>
+
+                <Button href="/">Home</Button>
               </li>
               <li>
-                <Button>Carrinho</Button>
+                <Button onClick={this.abrirCarrinho}>Carrinho</Button>
+
               </li>
             </ul>
           </div>
@@ -86,12 +105,14 @@ class App extends React.Component {
 
         <Section>
           <Aside>
-            <h3>sidebar filtro</h3>
+            <h3>Filtro</h3>
           </Aside>
           <Article>
-            <h2>Main section</h2>
-            <p>Lorem ipsum dolor sit amet.</p>
+
+            <h2>Produtos</h2>
+
           </Article>
+          {!this.state.carrinhoToggle ? <Carrinho /> : ''}
         </Section>
       </Main>
     );
