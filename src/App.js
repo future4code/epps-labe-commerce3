@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import Carrinho from './components/Carrinho';
+import Produto from './components/Produto';
+import Sectionmain from './components/Produtos'
+
 
 const Main = styled.main`
   display: flex;
@@ -58,10 +61,13 @@ const Article = styled.article`
 
   max-width: 60vw;
   min-width: 60vw;
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-column: 1;  
   padding: 1rem;
   background-color: lemonchiffon;
+  gap: 10px;
 
 `;
 
@@ -107,10 +113,17 @@ class App extends React.Component {
           <Aside>
             <h3>Filtro</h3>
           </Aside>
+          
           <Article>
 
-            <h2>Produtos</h2>
-
+              <Produto />
+              <Produto />
+              <Produto />
+              <Produto />
+              <Produto />
+              <Produto />
+              
+            
           </Article>
           {!this.state.carrinhoToggle ? <Carrinho /> : ''}
         </Section>
