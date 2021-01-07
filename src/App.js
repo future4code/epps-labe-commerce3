@@ -237,53 +237,57 @@ class App extends React.Component {
       {
         id: 0,
         name: 'camiseta1',
-        value: 49.99,
+        value: 49,
         imgURL: 'https://i.imgur.com/SZ29ybW.png',
       },
       {
         id: 1,
         name: 'blusa1',
-        value: 79.99,
+        value: 79,
         imgURL: 'https://i.imgur.com/SZ29ybW.png',
       },
       {
         id: 2,
         name: 'camiseta2',
-        value: 79.99,
+        value: 79,
         imgURL: 'https://i.imgur.com/SZ29ybW.png',
       },
       {
         id: 3,
         name: 'blusa2',
-        value: 79.99,
+        value: 79,
         imgURL: 'https://i.imgur.com/SZ29ybW.png',
       },
       {
         id: 4,
         name: 'blusa',
-        value: 79.99,
+        value: 79,
         imgURL: 'https://i.imgur.com/SZ29ybW.png',
       },
       {
         id: 5,
         name: 'blusa',
-        value: 79.99,
+        value: 79,
         imgURL: 'https://i.imgur.com/SZ29ybW.png',
       },
       {
         id: 6,
         name: 'blusa',
-        value: 79.99,
+        value: 79,
         imgURL: 'https://i.imgur.com/SZ29ybW.png',
       },
       {
         id: 7,
         name: 'blusa',
-        value: 79.99,
+        value: 79,
         imgURL: 'https://i.imgur.com/SZ29ybW.png',
       },
     ],
     carrinhoItens: [],
+    inputValorMin: 0,
+    inputValorMax: 0,
+    inputFiltroNome: '',
+    inputPreco: 0,
   };
 
   // Abrir sidebar do carrinho
@@ -316,6 +320,29 @@ class App extends React.Component {
     this.setState({ total: novoTotal });
     this.setState({ carrinhoItens: listaCarrinho });
   };
+
+  // Remove produto do carrinho
+  removeFromCart = (produtoId) => {
+    const novoCarrinho = this.state.carrinhoItens.filter((produto) => {
+      return produtoId !== produto;
+    });
+
+    // Exclui valor do produto do total do carrinho
+    let novoTotal = 0;
+    novoTotal = this.state.total - produtoId.value;
+    // setState para retirar valor do total
+    this.setState({ total: novoTotal });
+    // setState para remover item do state
+    this.setState({ carrinhoItens: novoCarrinho });
+  };
+
+  // Filtra produtos por valor mínimo
+
+  // Filtra produtos por valor máximo
+
+  // Filtra produtos por nome
+
+  // Filtra produtos por preço crescente/decrescente
 
   render() {
     return (
@@ -405,7 +432,12 @@ class App extends React.Component {
                         >
                           <p>{produto.name}</p>
                           <p>{produto.value}</p>
-                          <Button className="removeItem">X</Button>
+                          <Button
+                            onClick={() => this.removeFromCart(produto)}
+                            className="removeItem"
+                          >
+                            X
+                          </Button>
                         </span>
                       ))}
                     </Ul>
