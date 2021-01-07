@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Produto from './components/Produto';
 
 const Main = styled.main`
   display: flex;
@@ -288,12 +287,20 @@ class App extends React.Component {
     carrinhoItens: [],
   };
 
+  // Abrir sidebar do carrinho
   abrirCarrinho = () => {
     this.setState((prevState) => ({
       carrinhoToggle: !prevState.carrinhoToggle,
     }));
   };
 
+  // Calcula quantidade de produtos
+  qtdProdutos = () => {
+    let qtdProdutos = this.state.produtos.length;
+    return qtdProdutos;
+  };
+
+  // Adicionar produto ao carrinho
   addToCart = (produto) => {
     const novoProduto = {
       id: Date.now(),
@@ -359,7 +366,7 @@ class App extends React.Component {
           <Article carrinhoToggle={this.state.carrinhoToggle}>
             <h2>Produtos</h2>
             <p>
-              Quantidade de produtos: <span>X</span>
+              Quantidade de produtos: <span>{this.qtdProdutos()}</span>
             </p>
             <div className="productGrid">
               {this.state.produtos.map((produto) => {
