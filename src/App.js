@@ -21,6 +21,7 @@ const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 1px 1px 3px #ddd;
 
   h1 {
     margin-left: 2rem;
@@ -51,15 +52,16 @@ const Section = styled.section`
 
 const Aside = styled.aside`
   height: 100vh;
-  width: 20vw;
+  width: 25vw;
   display: flex;
   justify-content: center;
+  box-shadow: 1px 1px 3px #ddd;
 `;
 
 const Article = styled.article`
-  max-width: 60vw;
-  min-width: ${(props) => (props.carrinhoToggle ? '75vw' : '55vw')};
+  min-width: ${(props) => (props.carrinhoToggle ? '75vw' : '50vw')};
   height: 90vh;
+  padding: 1rem;
 `;
 
 const Button = styled.button`

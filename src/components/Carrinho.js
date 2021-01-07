@@ -4,9 +4,12 @@ import ProdutoCarrinho from './ProdutoCarrinho';
 
 const Aside = styled.aside`
   height: 100vh;
-  width: 25vw;
+  width: 30vw;
   display: flex;
   flex-direction: column;
+  padding-left: 1rem;
+  margin-left: 1rem;
+  border-left: 1px solid #ddd;
 
   h2 {
     padding: 1rem;
@@ -31,32 +34,8 @@ const Ul = styled.ul`
 class Carrinho extends React.Component {
   state = {
     total: 0,
-    produtos: [
-      {
-        id: 0,
-        name: 'camiseta',
-        value: 49.99,
-        imgURL: '',
-      },
-      {
-        id: 1,
-        name: 'blusa',
-        value: 79.99,
-        imgURL: '',
-      },
-    ],
+    produtos: [],
   };
-
-  // addToCart = () => {
-  //   const novoProdutos = {
-  //     id: Date.now(),
-  //     name: '',
-  //     value: 0,
-  //     imgURL: '',
-  //   };
-
-  //   this.setState({ novoProdutos, ...this.state.produtos });
-  // };
 
   // handlerAddToCart = () => {};
 
