@@ -1,42 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-const Text = styled.p`
-  color: tomato;
-`;
-
-const Li = styled.li`
-  list-style: none;
-  border-bottom: 1px solid #bbbbbb;
+const ProdutoDiv = styled.div`
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
-const Button = styled.button`
-  padding: 0.3rem 0.7rem;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  background-color: tomato;
-  margin: 0.5rem;
-  font-weight: 900;
-  font-size: 1rem;
-  color: #fff;
-
-  &:hover {
-    background-color: #e65036;
-  }
-`;
-
-class Produto extends Component {
-  render() {
-    return (
-      <Li>
-        <Text>{Produto.name}</Text>
-        <Button>X</Button>
-      </Li>
-    );
-  }
-}
+const Produto = (props) => {
+  return <ProdutoDiv>{props.name}</ProdutoDiv>;
+};
 
 export default Produto;
