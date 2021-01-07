@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Produto from './Produto';
+import ProdutoCarrinho from './ProdutoCarrinho';
 
 const Aside = styled.aside`
   height: 100vh;
@@ -13,7 +13,7 @@ const Aside = styled.aside`
   }
 
   div {
-    p {
+    p.total {
       padding-left: 1rem;
     }
   }
@@ -21,7 +21,6 @@ const Aside = styled.aside`
 
 const Section = styled.section`
   border-top: 1px solid #bbbbbb;
-  padding-left: 1rem;
 `;
 
 const Ul = styled.ul`
@@ -31,35 +30,35 @@ const Ul = styled.ul`
 
 class Carrinho extends React.Component {
   state = {
+    total: 0,
     produtos: [
       {
-        id: Date.now(),
-        name: '',
-        value: 0,
+        id: 0,
+        name: 'camiseta',
+        value: 49.99,
         imgURL: '',
       },
       {
-        id: Date.now(),
-        name: '',
-        value: 0,
+        id: 1,
+        name: 'blusa',
+        value: 79.99,
         imgURL: '',
       },
     ],
-    total: 0,
   };
 
-  addToCart = () => {
-    const novoProdutos = {
-      id: Date.now(),
-      name: '',
-      value: 0,
-      imgURL: '',
-    };
+  // addToCart = () => {
+  //   const novoProdutos = {
+  //     id: Date.now(),
+  //     name: '',
+  //     value: 0,
+  //     imgURL: '',
+  //   };
 
-    this.setState({ novoProdutos, ...this.state.produtos });
-  };
+  //   this.setState({ novoProdutos, ...this.state.produtos });
+  // };
 
-  handlerAddToCart = () => {};
+  // handlerAddToCart = () => {};
 
   render() {
     return (
@@ -67,15 +66,20 @@ class Carrinho extends React.Component {
         <h2>Carrinho</h2>
 
         <div>
-          <p>
-            Total: R$ <span>{this.state.total}</span>
-          </p>
+          <p className="total">Total: R$ {this.state.total}</p>
 
           <Section>
             <h4>Itens adicionados:</h4>
             <Ul>
               {this.state.produtos.map((produto) => (
-                <Produto key={produto.id} produto={produto} />
+                <ProdutoCarrinho
+                  key={produto.id}
+                  name={produto.name}
+                  value={produto.value}
+                >
+                  {produto.name}
+                  {produto.value}
+                </ProdutoCarrinho>
               ))}
             </Ul>
           </Section>

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Carrinho from './components/Carrinho';
 import Filtro from './components/Filtro';
+import Produtos from './components/Produtos';
 
 const Main = styled.main`
   display: flex;
@@ -63,7 +64,7 @@ const Article = styled.article`
   display: flex;
   justify-content: center;
   padding: 1rem;
-  background-color: lemonchiffon;
+  background-color: #fff;
 `;
 
 const Button = styled.button`
@@ -113,10 +114,10 @@ class App extends React.Component {
 
         <Section>
           <Aside>
-            <Filtro/>
+            <Filtro />
           </Aside>
           <Article carrinhoToggle={this.state.carrinhoToggle}>
-            <h2>Produtos</h2>
+            <Produtos />
           </Article>
           {!this.state.carrinhoToggle ? <Carrinho /> : ''}
         </Section>
