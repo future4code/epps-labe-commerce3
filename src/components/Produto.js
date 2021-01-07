@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import camiseta1 from ''
@@ -16,16 +17,20 @@ font-size: 18px;
 `
 
 
-const Produto = () => {  
-    return (
+
+
+
+const Produto = (props) => {
+  return (
       <div>
-      <Produtodiv>               
+      <Produtodiv> 
+    {props.name}
         <Buybtn>Colocar no Carrinho</Buybtn>
       </Produtodiv>
         
       </div>
     )
-  
-}
+};
 
-export default Produto
+export default Produto;
+
