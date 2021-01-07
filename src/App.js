@@ -1,8 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import Carrinho from './components/Carrinho';
+import Produto from './components/Produto';
+
+
+
 import Filtro from './components/Filtro';
 import Produtos from './components/Produtos';
+
 
 const Main = styled.main`
   display: flex;
@@ -60,11 +65,18 @@ const Aside = styled.aside`
 
 const Article = styled.article`
   max-width: 60vw;
-  min-width: ${(props) => (props.carrinhoToggle ? '75vw' : '55vw')};
-  display: flex;
-  justify-content: center;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-column: 1;  
   padding: 1rem;
+  gap: 10px;
+
+
+  min-width: ${(props) => (props.carrinhoToggle ? '75vw' : '55vw')};
   background-color: #fff;
+
 `;
 
 const Button = styled.button`
@@ -116,8 +128,10 @@ class App extends React.Component {
           <Aside>
             <Filtro />
           </Aside>
+
           <Article carrinhoToggle={this.state.carrinhoToggle}>
             <Produtos />
+
           </Article>
           {!this.state.carrinhoToggle ? <Carrinho /> : ''}
         </Section>

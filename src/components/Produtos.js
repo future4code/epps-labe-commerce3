@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import Produto from './Produto';
+
+import React, { Component } from 'react'
+import styled from 'styled-components'
+import Produto from './Produto'
+
 
 const Section = styled.section``;
 
@@ -39,3 +41,4 @@ class Produtos extends Component {
 }
 
 export default Produtos;
+
