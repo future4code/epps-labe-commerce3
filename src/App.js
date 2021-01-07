@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Produto from './components/Produto';
 
 const Main = styled.main`
   display: flex;
@@ -234,66 +233,77 @@ class App extends React.Component {
     carrinhoToggle: false,
     toggledWidth: false,
     total: 0,
-    qtdItens: 0,
     produtos: [
       {
         id: 0,
         name: 'camiseta1',
-        value: 49.99,
+        value: 49,
         imgURL: 'https://i.imgur.com/SZ29ybW.png',
       },
       {
         id: 1,
         name: 'blusa1',
-        value: 79.99,
+        value: 79,
         imgURL: 'https://i.imgur.com/SZ29ybW.png',
       },
       {
         id: 2,
         name: 'camiseta2',
-        value: 79.99,
+        value: 79,
         imgURL: 'https://i.imgur.com/SZ29ybW.png',
       },
       {
         id: 3,
         name: 'blusa2',
-        value: 79.99,
+        value: 79,
         imgURL: 'https://i.imgur.com/SZ29ybW.png',
       },
       {
         id: 4,
         name: 'blusa',
-        value: 79.99,
+        value: 79,
         imgURL: 'https://i.imgur.com/SZ29ybW.png',
       },
       {
         id: 5,
         name: 'blusa',
-        value: 79.99,
+        value: 79,
         imgURL: 'https://i.imgur.com/SZ29ybW.png',
       },
       {
         id: 6,
         name: 'blusa',
-        value: 79.99,
+        value: 79,
         imgURL: 'https://i.imgur.com/SZ29ybW.png',
       },
       {
         id: 7,
         name: 'blusa',
-        value: 79.99,
+        value: 79,
         imgURL: 'https://i.imgur.com/SZ29ybW.png',
       },
     ],
     carrinhoItens: [],
+    inputValorMin: 0,
+    inputValorMax: 0,
+    inputFiltroNome: '',
+    inputPreco: 0,
   };
 
+  // Abrir sidebar do carrinho
   abrirCarrinho = () => {
     this.setState((prevState) => ({
       carrinhoToggle: !prevState.carrinhoToggle,
     }));
   };
 
+  // Calcula quantidade de produtos
+  qtdProdutos = () => {
+    let qtdItens = this.state.produtos.length;
+    return qtdItens;
+  };
+
+  // Adicionar produto ao carrinho
   addToCart = (produto) => {
     const novoProduto = {
       id: Date.now(),
@@ -302,10 +312,37 @@ class App extends React.Component {
       imgURL: produto.imgURL,
     };
 
+    // Adiciona valor do produto ao valor total do carrinho
+    const novoTotal = this.state.total + novoProduto.value;
+    // Adiciona novo produto na lista de itens do carrinho
     const listaCarrinho = [novoProduto, ...this.state.carrinhoItens];
+    // setState para colocar valores no state
+    this.setState({ total: novoTotal });
     this.setState({ carrinhoItens: listaCarrinho });
-    console.log(listaCarrinho);
   };
+
+  // Remove produto do carrinho
+  removeFromCart = (produtoId) => {
+    const novoCarrinho = this.state.carrinhoItens.filter((produto) => {
+      return produtoId !== produto;
+    });
+
+    // Exclui valor do produto do total do carrinho
+    let novoTotal = 0;
+    novoTotal = this.state.total - produtoId.value;
+    // setState para retirar valor do total
+    this.setState({ total: novoTotal });
+    // setState para remover item do state
+    this.setState({ carrinhoItens: novoCarrinho });
+  };
+
+  // Filtra produtos por valor mínimo
+
+  // Filtra produtos por valor máximo
+
+  // Filtra produtos por nome
+
+  // Filtra produtos por preço crescente/decrescente
 
   render() {
     return (
@@ -359,7 +396,7 @@ class App extends React.Component {
           <Article carrinhoToggle={this.state.carrinhoToggle}>
             <h2>Produtos</h2>
             <p>
-              Quantidade de produtos: <span>X</span>
+              Quantidade de produtos: <span>{this.qtdProdutos()}</span>
             </p>
             <div className="productGrid">
               {this.state.produtos.map((produto) => {
@@ -395,7 +432,12 @@ class App extends React.Component {
                         >
                           <p>{produto.name}</p>
                           <p>{produto.value}</p>
-                          <Button className="removeItem">X</Button>
+                          <Button
+                            onClick={() => this.removeFromCart(produto)}
+                            className="removeItem"
+                          >
+                            X
+                          </Button>
                         </span>
                       ))}
                     </Ul>
