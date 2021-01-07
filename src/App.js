@@ -233,7 +233,6 @@ class App extends React.Component {
     carrinhoToggle: false,
     toggledWidth: false,
     total: 0,
-    qtdItens: 0,
     produtos: [
       {
         id: 0,
@@ -296,8 +295,8 @@ class App extends React.Component {
 
   // Calcula quantidade de produtos
   qtdProdutos = () => {
-    let qtdProdutos = this.state.produtos.length;
-    return qtdProdutos;
+    let qtdItens = this.state.produtos.length;
+    return qtdItens;
   };
 
   // Adicionar produto ao carrinho
@@ -309,9 +308,13 @@ class App extends React.Component {
       imgURL: produto.imgURL,
     };
 
+    // Adiciona valor do produto ao valor total do carrinho
+    const novoTotal = this.state.total + novoProduto.value;
+    // Adiciona novo produto na lista de itens do carrinho
     const listaCarrinho = [novoProduto, ...this.state.carrinhoItens];
+    // setState para colocar valores no state
+    this.setState({ total: novoTotal });
     this.setState({ carrinhoItens: listaCarrinho });
-    console.log(listaCarrinho);
   };
 
   render() {
