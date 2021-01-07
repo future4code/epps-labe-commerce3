@@ -43,15 +43,12 @@ const Img = styled.img`
 `;
 
 const Produto = (props) => {
-  const addToCart = (id) => {
-    console.log(id);
-  };
   return (
     <Produtodiv>
       <Img src={props.imgURL} />
       <Text>{props.name}</Text>
       <Text>R$ {props.value}</Text>
-      <Buybtn onClick={addToCart(props.id)}>Colocar no Carrinho</Buybtn>
+      <Buybtn>Colocar no Carrinho</Buybtn>
     </Produtodiv>
   );
 };
