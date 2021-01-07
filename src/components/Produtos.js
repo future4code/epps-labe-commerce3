@@ -15,7 +15,7 @@ const Main = styled.main`
 
 const Section = styled.section`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
   grid-template-rows: repeat(auto-fill, minmax(250px, 1fr));
   gap: 2.5rem;
 `;

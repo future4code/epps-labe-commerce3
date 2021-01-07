@@ -48,7 +48,7 @@ const ProdutoCarrinho = (props) => {
     <Li produto={props.produto}>
       <Span>
         <Text>{props.name}</Text>
-        <Text>{props.value}</Text>
+        <Text>R$ {props.value}</Text>
       </Span>
       <Button>X</Button>
     </Li>
