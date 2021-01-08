@@ -229,66 +229,68 @@ const Produtodiv = styled.div`
   padding: 0.5rem;
 `;
 
+const listaDeProdutos = [
+  {
+    id: 0,
+    name: 'camiseta1',
+    value: 49,
+    imgURL: 'https://i.imgur.com/SZ29ybW.png',
+  },
+  {
+    id: 1,
+    name: 'blusa1',
+    value: 79,
+    imgURL: 'https://i.imgur.com/SZ29ybW.png',
+  },
+  {
+    id: 2,
+    name: 'camiseta2',
+    value: 59,
+    imgURL: 'https://i.imgur.com/SZ29ybW.png',
+  },
+  {
+    id: 3,
+    name: 'blusa2',
+    value: 129,
+    imgURL: 'https://i.imgur.com/SZ29ybW.png',
+  },
+  {
+    id: 4,
+    name: 'brinquedo1',
+    value: 39,
+    imgURL: 'https://i.imgur.com/SZ29ybW.png',
+  },
+  {
+    id: 5,
+    name: 'brinquedo2',
+    value: 19,
+    imgURL: 'https://i.imgur.com/SZ29ybW.png',
+  },
+  {
+    id: 6,
+    name: 'blusa3',
+    value: 179,
+    imgURL: 'https://i.imgur.com/SZ29ybW.png',
+  },
+  {
+    id: 7,
+    name: 'blusa4',
+    value: 59,
+    imgURL: 'https://i.imgur.com/SZ29ybW.png',
+  },
+];
+
 class App extends React.Component {
   state = {
     carrinhoToggle: false,
     toggledWidth: false,
     total: 0,
-    produtos: [
-      {
-        id: 0,
-        name: 'camiseta1',
-        value: 49,
-        imgURL: 'https://i.imgur.com/SZ29ybW.png',
-      },
-      {
-        id: 1,
-        name: 'blusa1',
-        value: 79,
-        imgURL: 'https://i.imgur.com/SZ29ybW.png',
-      },
-      {
-        id: 2,
-        name: 'camiseta2',
-        value: 59,
-        imgURL: 'https://i.imgur.com/SZ29ybW.png',
-      },
-      {
-        id: 3,
-        name: 'blusa2',
-        value: 129,
-        imgURL: 'https://i.imgur.com/SZ29ybW.png',
-      },
-      {
-        id: 4,
-        name: 'brinquedo1',
-        value: 39,
-        imgURL: 'https://i.imgur.com/SZ29ybW.png',
-      },
-      {
-        id: 5,
-        name: 'brinquedo2',
-        value: 19,
-        imgURL: 'https://i.imgur.com/SZ29ybW.png',
-      },
-      {
-        id: 6,
-        name: 'blusa3',
-        value: 179,
-        imgURL: 'https://i.imgur.com/SZ29ybW.png',
-      },
-      {
-        id: 7,
-        name: 'blusa4',
-        value: 59,
-        imgURL: 'https://i.imgur.com/SZ29ybW.png',
-      },
-    ],
+    produtos: listaDeProdutos,
     carrinhoItens: [],
     inputFiltroNome: '',
     inputValorMax: 0,
     inputValorMin: 0,
-    inputPreco: '',
+    inputPreco: 'nenhum',
     novaListaFiltrada: [],
   };
 
@@ -358,46 +360,30 @@ class App extends React.Component {
     this.setState({ inputFiltroNome: event.target.value });
   };
 
-  // Filtra produtos por preço crescente/decrescente
-
-  onChangeFilterPrice = (event) => {
+  onChangeFiltroPreco = (event) => {
     this.setState({ inputPreco: event.target.value });
   };
 
-  filterProducts = () => {
-    return this.state.produtos.filter(
-      (produto) => {
-        return produto.name === this.props.inputFiltroNome;
-      }
-      // {
-      //   if (produto.name.includes(this.state.inputFiltroNome)) {
-      //     console.log(produto);
-      //     return true;
-      //   }
-      //   console.log(produto);
-      // }
-    );
-    // .filter((produto) => this.props.inputValorMin < produto.value)
-    // .filter((produto) => this.props.inputValorMax > produto.value)
-    // .filter((produto) => {
-    //   switch (this.props.inputPreco) {
-    //     case 'crescente':
-    //       if (this.props.inputPreco > produto.value) {
-    //         return true;
-    //       }
-    //       break;
-    //     case 'decrescente':
-    //       if (this.props.inputPreco < produto.value) {
-    //         return true;
-    //       }
-    //       break;
-    //     default:
-    //       console.log('Incorrect value');
-    //   }
-    //   console.log(produto);
-    //   return produto;
-    // });
-  };
+  // Filtra produtos por preço crescente/decrescente
+  // filterProducts = (event) => {
+
+  //   switch (this.state.inputPreco) {
+  //     case 'crescente':
+  //       return this.setState({
+  //         inputPreco: this.state.produtos.sort(function (a, b) {
+  //           return b.price - a.price;
+  //         }),
+  //       });
+  //     case 'decrescente':
+  //       return this.setState({
+  //         inputPreco: this.state.produtos.sort(function (a, b) {
+  //           return a.price - b.price;
+  //         }),
+  //       });
+  //     default:
+  //       return this.setState({ produtos: this.state.produtos });
+  //   }
+  // };
 
   render() {
     const listaFiltrada = this.state.produtos
@@ -415,8 +401,19 @@ class App extends React.Component {
         if (produto.value < this.state.inputValorMax) {
           return true;
         }
+      })
+      .filter((produto) => {
+        if (this.state.inputPreco === 'crescente') {
+          return this.state.produtos.sort(function (a, b) {
+            return b.value - a.value;
+          });
+        } else if (this.state.inputPreco === 'decrescente') {
+          return this.state.produtos.sort(function (a, b) {
+            return a.value - b.value;
+          });
+        }
+        return true;
       });
-
     return (
       <Main>
         <Header>
@@ -469,10 +466,10 @@ class App extends React.Component {
                 <FormControl>
                   <Label>Filtrar por preço:</Label>
                   <Select
-                    value={this.props.filtroPreco}
-                    onChange={this.filterProducts}
+                    value={this.state.inputPreco}
+                    onChange={this.onChangeFiltroPreco}
                   >
-                    <option value="">Nenhum</option>
+                    <option value="nenhum">Nenhum filtro</option>
                     <option value="crescente">Preço crescente</option>
                     <option value="decrescente">Preço decrescente</option>
                   </Select>
