@@ -232,49 +232,49 @@ const Produtodiv = styled.div`
 const listaDeProdutos = [
   {
     id: 0,
-    name: 'camiseta1',
+    name: 'camiseta barata',
     value: 49,
     imgURL: 'https://i.imgur.com/SZ29ybW.png',
   },
   {
     id: 1,
-    name: 'blusa1',
+    name: 'blusa1 média',
     value: 79,
     imgURL: 'https://i.imgur.com/SZ29ybW.png',
   },
   {
     id: 2,
-    name: 'camiseta2',
+    name: 'camiseta média',
     value: 59,
     imgURL: 'https://i.imgur.com/SZ29ybW.png',
   },
   {
     id: 3,
-    name: 'blusa2',
+    name: 'blusa cara',
     value: 129,
     imgURL: 'https://i.imgur.com/SZ29ybW.png',
   },
   {
     id: 4,
-    name: 'brinquedo1',
+    name: 'brinquedo caro',
     value: 39,
     imgURL: 'https://i.imgur.com/SZ29ybW.png',
   },
   {
     id: 5,
-    name: 'brinquedo2',
+    name: 'brinquedo barato',
     value: 19,
     imgURL: 'https://i.imgur.com/SZ29ybW.png',
   },
   {
     id: 6,
-    name: 'blusa3',
+    name: 'blusa muito cara',
     value: 179,
     imgURL: 'https://i.imgur.com/SZ29ybW.png',
   },
   {
     id: 7,
-    name: 'blusa4',
+    name: 'blusa barata',
     value: 59,
     imgURL: 'https://i.imgur.com/SZ29ybW.png',
   },
@@ -340,14 +340,12 @@ class App extends React.Component {
     this.setState({ carrinhoItens: novoCarrinho });
   };
 
-  // Filtra produtos por valor mínimo
   filterByMin = () => {};
 
   onChangeValorMin = (event) => {
     this.setState({ inputValorMin: event.target.value });
   };
 
-  // Filtra produtos por valor máximo
   filterByMax = () => {};
 
   onChangeValorMax = (event) => {
@@ -364,56 +362,42 @@ class App extends React.Component {
     this.setState({ inputPreco: event.target.value });
   };
 
-  // Filtra produtos por preço crescente/decrescente
-  // filterProducts = (event) => {
-
-  //   switch (this.state.inputPreco) {
-  //     case 'crescente':
-  //       return this.setState({
-  //         inputPreco: this.state.produtos.sort(function (a, b) {
-  //           return b.price - a.price;
-  //         }),
-  //       });
-  //     case 'decrescente':
-  //       return this.setState({
-  //         inputPreco: this.state.produtos.sort(function (a, b) {
-  //           return a.price - b.price;
-  //         }),
-  //       });
-  //     default:
-  //       return this.setState({ produtos: this.state.produtos });
-  //   }
-  // };
-
   render() {
+    // Nova lista filtrada de produtos
     const listaFiltrada = this.state.produtos
+      // Filtra produtos por nome
       .filter((produto) => {
         if (produto.name.includes(this.state.inputFiltroNome)) {
           return true;
         }
       })
+      // Filtra produtos por valor mínimo
       .filter((produto) => {
         if (produto.value >= this.state.inputValorMin) {
           return true;
         }
       })
+      // Filtra produtos por valor máximo
       .filter((produto) => {
-        if (produto.value < this.state.inputValorMax) {
+        if (produto.value <= this.state.inputValorMax) {
+          return true;
+        } else if (this.state.inputValorMax === 0) {
           return true;
         }
       })
-      .filter((produto) => {
-        if (this.state.inputPreco === 'crescente') {
-          return this.state.produtos.sort(function (a, b) {
-            return b.value - a.value;
-          });
-        } else if (this.state.inputPreco === 'decrescente') {
-          return this.state.produtos.sort(function (a, b) {
-            return a.value - b.value;
-          });
-        }
-        return true;
-      });
+      // Filtra produtos por preço crescente
+      .sort((menor, maior) =>
+        this.state.inputPreco === 'crescente'
+          ? menor.value - maior.value
+          : maior.value - menor.value
+      )
+      // Filtra produtos por preço decrescente
+      .sort((menor, maior) =>
+        this.state.inputPreco === 'decrescente'
+          ? maior.value - menor.value
+          : menor.value - maior.value
+      );
+
     return (
       <Main>
         <Header>
@@ -518,7 +502,7 @@ class App extends React.Component {
                           value={produto.value}
                         >
                           <p>{produto.name}</p>
-                          <p>{produto.value}</p>
+                          <p>R$ {produto.value}</p>
                           <Button
                             onClick={() => this.removeFromCart(produto)}
                             className="removeItem"
