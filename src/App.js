@@ -58,6 +58,7 @@ const Aside = styled.aside`
     display: flex;
     flex-direction: column;
     margin: 1vw;
+    width: 20vw;
   }
 
   div.carrinho {
@@ -249,45 +250,46 @@ class App extends React.Component {
       {
         id: 2,
         name: 'camiseta2',
-        value: 79,
+        value: 59,
         imgURL: 'https://i.imgur.com/SZ29ybW.png',
       },
       {
         id: 3,
         name: 'blusa2',
-        value: 79,
+        value: 129,
         imgURL: 'https://i.imgur.com/SZ29ybW.png',
       },
       {
         id: 4,
-        name: 'blusa',
-        value: 79,
+        name: 'brinquedo1',
+        value: 39,
         imgURL: 'https://i.imgur.com/SZ29ybW.png',
       },
       {
         id: 5,
-        name: 'blusa',
-        value: 79,
+        name: 'brinquedo2',
+        value: 19,
         imgURL: 'https://i.imgur.com/SZ29ybW.png',
       },
       {
         id: 6,
-        name: 'blusa',
-        value: 79,
+        name: 'blusa3',
+        value: 179,
         imgURL: 'https://i.imgur.com/SZ29ybW.png',
       },
       {
         id: 7,
-        name: 'blusa',
-        value: 79,
+        name: 'blusa4',
+        value: 59,
         imgURL: 'https://i.imgur.com/SZ29ybW.png',
       },
     ],
     carrinhoItens: [],
-    inputValorMin: 0,
-    inputValorMax: 0,
     inputFiltroNome: '',
-    inputPreco: 0,
+    inputValorMax: 0,
+    inputValorMin: 0,
+    inputPreco: '',
+    novaListaFiltrada: [],
   };
 
   // Abrir sidebar do carrinho
@@ -337,14 +339,84 @@ class App extends React.Component {
   };
 
   // Filtra produtos por valor mínimo
+  filterByMin = () => {};
+
+  onChangeValorMin = (event) => {
+    this.setState({ inputValorMin: event.target.value });
+  };
 
   // Filtra produtos por valor máximo
+  filterByMax = () => {};
+
+  onChangeValorMax = (event) => {
+    this.setState({ inputValorMax: event.target.value });
+  };
 
   // Filtra produtos por nome
 
+  onChangeFiltroNome = (event) => {
+    this.setState({ inputFiltroNome: event.target.value });
+  };
+
   // Filtra produtos por preço crescente/decrescente
 
+  onChangeFilterPrice = (event) => {
+    this.setState({ inputPreco: event.target.value });
+  };
+
+  filterProducts = () => {
+    return this.state.produtos.filter(
+      (produto) => {
+        return produto.name === this.props.inputFiltroNome;
+      }
+      // {
+      //   if (produto.name.includes(this.state.inputFiltroNome)) {
+      //     console.log(produto);
+      //     return true;
+      //   }
+      //   console.log(produto);
+      // }
+    );
+    // .filter((produto) => this.props.inputValorMin < produto.value)
+    // .filter((produto) => this.props.inputValorMax > produto.value)
+    // .filter((produto) => {
+    //   switch (this.props.inputPreco) {
+    //     case 'crescente':
+    //       if (this.props.inputPreco > produto.value) {
+    //         return true;
+    //       }
+    //       break;
+    //     case 'decrescente':
+    //       if (this.props.inputPreco < produto.value) {
+    //         return true;
+    //       }
+    //       break;
+    //     default:
+    //       console.log('Incorrect value');
+    //   }
+    //   console.log(produto);
+    //   return produto;
+    // });
+  };
+
   render() {
+    const listaFiltrada = this.state.produtos
+      .filter((produto) => {
+        if (produto.name.includes(this.state.inputFiltroNome)) {
+          return true;
+        }
+      })
+      .filter((produto) => {
+        if (produto.value >= this.state.inputValorMin) {
+          return true;
+        }
+      })
+      .filter((produto) => {
+        if (produto.value < this.state.inputValorMax) {
+          return true;
+        }
+      });
+
     return (
       <Main>
         <Header>
@@ -369,24 +441,40 @@ class App extends React.Component {
               <Form>
                 <FormControl>
                   <Label>Valor mínimo:</Label>
-                  <Input type="number" Value="0"></Input>
+                  <Input
+                    type="number"
+                    value={this.state.inputValorMin}
+                    onChange={this.onChangeValorMin}
+                  ></Input>
                 </FormControl>
 
                 <FormControl>
                   <Label>Valor máximo:</Label>
-                  <Input type="number" Value="0"></Input>
+                  <Input
+                    type="number"
+                    value={this.state.inputValorMax}
+                    onChange={this.onChangeValorMax}
+                  ></Input>
                 </FormControl>
 
                 <FormControl>
                   <Label>Buscar produto:</Label>
-                  <Input type="text"></Input>
+                  <Input
+                    type="text"
+                    value={this.state.inputFiltroNome}
+                    onChange={this.onChangeFiltroNome}
+                  ></Input>
                 </FormControl>
 
                 <FormControl>
                   <Label>Filtrar por preço:</Label>
-                  <Select>
-                    <option value="">Preço crescente</option>
-                    <option value="">Preço decrescente</option>
+                  <Select
+                    value={this.props.filtroPreco}
+                    onChange={this.filterProducts}
+                  >
+                    <option value="">Nenhum</option>
+                    <option value="crescente">Preço crescente</option>
+                    <option value="decrescente">Preço decrescente</option>
                   </Select>
                 </FormControl>
               </Form>
@@ -399,7 +487,7 @@ class App extends React.Component {
               Quantidade de produtos: <span>{this.qtdProdutos()}</span>
             </p>
             <div className="productGrid">
-              {this.state.produtos.map((produto) => {
+              {listaFiltrada.map((produto) => {
                 return (
                   <Produtodiv key={produto.id}>
                     <Img src={produto.imgURL} />
@@ -422,7 +510,9 @@ class App extends React.Component {
                   <p className="total">Total: R$ {this.state.total}</p>
 
                   <div className="carrinhoDiv">
-                    <h4>Itens adicionados:</h4>
+                    <h4>
+                      {this.state.carrinhoItens.length} itens adicionados:
+                    </h4>
                     <Ul>
                       {this.state.carrinhoItens.map((produto) => (
                         <span
