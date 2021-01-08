@@ -340,14 +340,12 @@ class App extends React.Component {
     this.setState({ carrinhoItens: novoCarrinho });
   };
 
-  // Filtra produtos por valor mínimo
   filterByMin = () => {};
 
   onChangeValorMin = (event) => {
     this.setState({ inputValorMin: event.target.value });
   };
 
-  // Filtra produtos por valor máximo
   filterByMax = () => {};
 
   onChangeValorMax = (event) => {
@@ -364,46 +362,34 @@ class App extends React.Component {
     this.setState({ inputPreco: event.target.value });
   };
 
-  // Filtra produtos por preço crescente/decrescente
-  // filterProducts = (event) => {
-
-  //   switch (this.state.inputPreco) {
-  //     case 'crescente':
-  //       return this.setState({
-  //         inputPreco: this.state.produtos.sort(function (a, b) {
-  //           return b.price - a.price;
-  //         }),
-  //       });
-  //     case 'decrescente':
-  //       return this.setState({
-  //         inputPreco: this.state.produtos.sort(function (a, b) {
-  //           return a.price - b.price;
-  //         }),
-  //       });
-  //     default:
-  //       return this.setState({ produtos: this.state.produtos });
-  //   }
-  // };
-
   render() {
+    // Nova lista filtrada de produtos
     const listaFiltrada = this.state.produtos
+      // Filtra produtos por nome
       .filter((produto) => {
         if (produto.name.includes(this.state.inputFiltroNome)) {
           return true;
         }
       })
+      // Filtra produtos por valor mínimo
       .filter((produto) => {
         if (produto.value >= this.state.inputValorMin) {
           return true;
         }
       })
+      // Filtra produtos por valor máximo
       .filter((produto) => {
-        if (produto.value < this.state.inputValorMax) {
+        if (produto.value <= this.state.inputValorMax) {
+          return true;
+        } else if (this.state.inputValorMax === 0) {
           return true;
         }
       })
+      // Filtra produtos por preço crescente/decrescente
       .filter((produto) => {
-        if (this.state.inputPreco === 'crescente') {
+        if (this.state.inputPreco === 'nenhum') {
+          return true;
+        } else if (this.state.inputPreco === 'crescente') {
           return this.state.produtos.sort(function (a, b) {
             return b.value - a.value;
           });
@@ -412,7 +398,7 @@ class App extends React.Component {
             return a.value - b.value;
           });
         }
-        return true;
+        return produto;
       });
     return (
       <Main>
@@ -518,7 +504,7 @@ class App extends React.Component {
                           value={produto.value}
                         >
                           <p>{produto.name}</p>
-                          <p>{produto.value}</p>
+                          <p>R$ {produto.value}</p>
                           <Button
                             onClick={() => this.removeFromCart(produto)}
                             className="removeItem"
