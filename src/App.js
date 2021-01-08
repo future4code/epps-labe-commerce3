@@ -232,49 +232,49 @@ const Produtodiv = styled.div`
 const listaDeProdutos = [
   {
     id: 0,
-    name: 'camiseta1',
+    name: 'camiseta barata',
     value: 49,
     imgURL: 'https://i.imgur.com/SZ29ybW.png',
   },
   {
     id: 1,
-    name: 'blusa1',
+    name: 'blusa1 média',
     value: 79,
     imgURL: 'https://i.imgur.com/SZ29ybW.png',
   },
   {
     id: 2,
-    name: 'camiseta2',
+    name: 'camiseta média',
     value: 59,
     imgURL: 'https://i.imgur.com/SZ29ybW.png',
   },
   {
     id: 3,
-    name: 'blusa2',
+    name: 'blusa cara',
     value: 129,
     imgURL: 'https://i.imgur.com/SZ29ybW.png',
   },
   {
     id: 4,
-    name: 'brinquedo1',
+    name: 'brinquedo caro',
     value: 39,
     imgURL: 'https://i.imgur.com/SZ29ybW.png',
   },
   {
     id: 5,
-    name: 'brinquedo2',
+    name: 'brinquedo barato',
     value: 19,
     imgURL: 'https://i.imgur.com/SZ29ybW.png',
   },
   {
     id: 6,
-    name: 'blusa3',
+    name: 'blusa muito cara',
     value: 179,
     imgURL: 'https://i.imgur.com/SZ29ybW.png',
   },
   {
     id: 7,
-    name: 'blusa4',
+    name: 'blusa barata',
     value: 59,
     imgURL: 'https://i.imgur.com/SZ29ybW.png',
   },
@@ -385,21 +385,19 @@ class App extends React.Component {
           return true;
         }
       })
-      // Filtra produtos por preço crescente/decrescente
-      .filter((produto) => {
-        if (this.state.inputPreco === 'nenhum') {
-          return true;
-        } else if (this.state.inputPreco === 'crescente') {
-          return this.state.produtos.sort(function (a, b) {
-            return b.value - a.value;
-          });
-        } else if (this.state.inputPreco === 'decrescente') {
-          return this.state.produtos.sort(function (a, b) {
-            return a.value - b.value;
-          });
-        }
-        return produto;
-      });
+      // Filtra produtos por preço crescente
+      .sort((menor, maior) =>
+        this.state.inputPreco === 'crescente'
+          ? menor.value - maior.value
+          : maior.value - menor.value
+      )
+      // Filtra produtos por preço decrescente
+      .sort((menor, maior) =>
+        this.state.inputPreco === 'decrescente'
+          ? maior.value - menor.value
+          : menor.value - maior.value
+      );
+
     return (
       <Main>
         <Header>
